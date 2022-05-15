@@ -135,7 +135,7 @@ def download():
 
 @app.route('/download-app-1')
 def download_app_1():
-	return send_from_directory('static', path="static/files/cheat_sheet.pdf", filename="files/cheat_sheet.pdf", as_attachment=True)
+	return send_from_directory('static', path="static/files/App.txt", filename="files/App.txt", as_attachment=True)
 
 
 
