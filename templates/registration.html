@@ -1,13 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
+
 <form class="reg-form-1 bg-dark" action="{{ url_for('registration') }}" method="POST">
 	<div class="reg-form-cont-1">	
 	  <div class="form-group">
 	    <input name="first_name" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="First Name">
 	  </div>
 	  <div class="form-group">
-	    <input name="last_name" type="password" class="form-control" id="exampleInputPassword1" placeholder="Last Name">
+	    <input name="last_name" type="text" class="form-control" id="exampleInputPassword1" placeholder="Last Name">
 	  </div>
 	  <div class="form-group">
 	    <input name="email" type="email" class="form-control" id="exampleInputPassword1" placeholder="Email">
@@ -18,4 +19,5 @@
 	  <center><button type="submit" class="btn btn-light reg-btn">Submit</button></center>
 	</div>  
 </form>
+
 {% endblock %}
