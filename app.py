@@ -11,12 +11,12 @@ from flask_login import UserMixin, LoginManager, current_user, login_required, l
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from functools import wraps
-
+import os
 
 app = Flask(__name__)
-app.secret_key = "1vsg23t43gedsfg34g34gaew4g2343tg3g8?hgfjkd!dghfd"
+app.secret_key = os.environ.get("SECRET_KEY")
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///users.db"
+app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URI")
 db = SQLAlchemy(app)
 
 login_manager = LoginManager()
@@ -148,5 +148,5 @@ def download_cv():
 
 
 
-if __name__ == "__main__":
-	app.run(debug=True)    
+# if __name__ == "__main__":
+# 	app.run(debug=True)    
