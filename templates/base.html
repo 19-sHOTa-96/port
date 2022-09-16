@@ -47,9 +47,25 @@
 	      <li class="nav-item">
 	        <a class="nav-link" href="{{ url_for('download') }}" id="base-nav">Apps</a>
 	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link" href="{{ url_for('contact') }}" id="base-nav">Contact</a>
-	      </li>
+	      <!-- <li class="nav-item">
+	        <a class="nav-link" href="{{ url_for('contact_email') }}" id="base-nav">ContactEmail</a>
+	      </li> -->
+		  <!-- <li class="nav-item">
+	        <a class="nav-link nav-link dropdown-toggle" href="{{ url_for('contact_sms') }}" id="base-nav">ContactSms</a>
+	      </li> -->
+
+		  <ul class="nav nav-pills" id="drop-item">
+			<li class="nav-item dropdown">
+			  <a class="nav-link dropdown-toggle bg-secondary" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Contact Me</a>
+			  <div class="dropdown-menu">
+				<a class="dropdown-item" href="{{ url_for('contact_email') }}">Via Email</a>
+				<a class="dropdown-item" href="{{ url_for('contact_sms') }}">Via Sms</a>
+				<div role="separator" class="dropdown-divider"></div>
+				<a class="dropdown-item" href="#three">Other Way</a>
+			  </div>
+			</li>
+		  </ul>
+
 	    </ul>
 
 	    <ul class="navbar-nav navbar-conts">

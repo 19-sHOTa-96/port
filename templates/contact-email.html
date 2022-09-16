@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+<form action="{{ url_for('contact_email') }}" method="POST" class="cont-form-1 bg-dark">
+	<div class="reg-form-cont-1">	
+	  <div class="form-group">
+	    <input name="name" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Name">
+	  </div>
+	  <div class="form-group">
+	    <input name="email" type="email" class="form-control" id="exampleInputPassword1" placeholder="Email">
+	  </div>
+	  <div class="form-group">
+	    <textarea name="text" class="form-control cont-form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+	  </div>
+	  <center><button type="submit" class="btn btn-light cont-btn">Send</button></center>
+	</div>  
+</form>
+
+{% endblock %}

@@ -1,5 +1,5 @@
 #My modules
-from sendmsg import SendMail
+from contact import Contactor
 
 
 #Flask imports
@@ -12,12 +12,26 @@ from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from functools import wraps
 import os
+from flask_migrate import Migrate
+from flask_mail import Mail, Message
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY")
 
 app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URI")
+
+
+
+#adnresmobtana@gmail.com
+app.config['MAIL_SERVER'] = 'smtp.googlemail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USERNAME'] = os.environ.get("MY_EMAIL")
+app.config['MAIL_PASSWORD'] = os.environ.get("PASSWORD")
+
 db = SQLAlchemy(app)
+migrate = Migrate(app, db)
+mail = Mail(app)
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -37,7 +51,7 @@ class Users(UserMixin, db.Model):
 
 
 #Own Objects
-mail_sender = SendMail()
+sender = Contactor()
 
 
 
@@ -111,18 +125,33 @@ def logout():
 	return redirect(url_for('home'))
 
 
+# ------------------------------------------------------------------------------------------------------------- #
 
-@app.route('/contact', methods=['POST', 'GET'])
+@app.route('/contact-email', methods=['POST', 'GET'])
 # @login_required
 @admin
-def contact():
+def contact_email():
 
 	if request.method == 'POST':
-		name, email, msg = request.form['name'], request.form['email'], request.form['msg']
-		mail_sender.send(name, email, msg)
+		name, email, msg = request.form['name'], request.form['email'], request.form['text']
+		sender.send_email(name, email, msg)
+		# print(name, email, msg)			
 
-	return render_template('contact.html')
+	return render_template('contact-email.html')
 
+
+@app.route('/contact-sms', methods=['POST', 'GET'])
+@admin
+def contact_sms():
+
+	if request.method == 'POST':
+		name, phone, text = request.form['name'], request.form['phone'], request.form['text']
+		sender.send_sms(name, phone, text)
+		# print(name, phone, text)
+
+	return render_template('contact-sms.html')		
+
+# ------------------------------------------------------------------------------------------------------------- #
 
 
 @app.route('/download')
@@ -130,7 +159,6 @@ def contact():
 @admin
 def download():
 	return render_template('download.html')
-
 
 
 @app.route('/download-app-1')
@@ -148,5 +176,5 @@ def download_cv():
 
 
 
-# if __name__ == "__main__":
-# 	app.run(debug=True)    
+if __name__ == "__main__":
+	app.run(debug=True)    
