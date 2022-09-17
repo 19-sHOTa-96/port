@@ -1,4 +1,5 @@
 #My modules
+import sqlite3
 from contact import Contactor
 
 
@@ -11,14 +12,14 @@ from flask_login import UserMixin, LoginManager, current_user, login_required, l
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from functools import wraps
-import os
 from flask_migrate import Migrate
 from flask_mail import Mail, Message
+import os
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY")
 
-app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get('DATABASE_URL', 'sqlite:///base.db').replace("://", "ql://", 1)# os.environ.get("DATABASE_URL")
+app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 
@@ -36,10 +37,12 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 # login_manager.login_view = 'login'
 
+connection = sqlite3.connect('base.db')
+cursor = connection.cursor()
+
 @login_manager.user_loader
 def load_user(user_id):
     return Users.query.get(int(user_id))
-
 
 class Users(UserMixin, db.Model):
 	__tablename__ = "users"
