@@ -18,13 +18,10 @@ from flask_mail import Mail, Message
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY")
 
-app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASEURI")
+app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 
-
-
-#adnresmobtana@gmail.com
 app.config['MAIL_SERVER'] = 'smtp.googlemail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
