@@ -21,7 +21,9 @@ app.secret_key = os.environ.get("SECRET_KEY")
 app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URI")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
+print(os.environ.get("DATABASE_URI"))
 
+'''
 #adnresmobtana@gmail.com
 app.config['MAIL_SERVER'] = 'smtp.googlemail.com'
 app.config['MAIL_PORT'] = 587
@@ -178,3 +180,4 @@ def download_cv():
 
 if __name__ == "__main__":
 	app.run(debug=True)    
+'''
