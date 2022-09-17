@@ -18,7 +18,7 @@ from flask_mail import Mail, Message
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY")
 
-app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get('DATABASE_URL').replace("://", "ql://", 1)# os.environ.get("DATABASE_URL")
+app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get('DATABASE_URL', 'sqlite:///base.db').replace("://", "ql://", 1)# os.environ.get("DATABASE_URL")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 
@@ -43,6 +43,7 @@ def load_user(user_id):
 
 class Users(UserMixin, db.Model):
 	__tablename__ = "users"
+
 	id = db.Column(db.Integer, primary_key=True)
 	user_name = db.Column(db.String(80), unique=True, nullable=False)
 	user_email = db.Column(db.String(80), unique=True, nullable=False)
