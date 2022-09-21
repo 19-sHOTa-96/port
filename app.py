@@ -1,5 +1,5 @@
 #My modules
-import sqlite3
+# import sqlite3
 from contact import Contactor
 
 
@@ -17,11 +17,10 @@ from flask_mail import Mail, Message
 import os
 
 app = Flask(__name__)
-app.secret_key = os.environ.get("SECRET_KEY")
+app.secret_key = 'ab3dc22ca4ab49c5820bab5c87489918'
 
-app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///users.db" # os.environ.get("DATABASE_URL")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-
 
 app.config['MAIL_SERVER'] = 'smtp.googlemail.com'
 app.config['MAIL_PORT'] = 587
@@ -36,9 +35,6 @@ mail = Mail(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 # login_manager.login_view = 'login'
-
-connection = sqlite3.connect('base.db')
-cursor = connection.cursor()
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -166,13 +162,19 @@ def download():
 
 @app.route('/download-app-1')
 def download_app_1():
-	return send_from_directory('static', path="static/files/App.txt", filename="files/App.txt", as_attachment=True)
+	return send_from_directory('static', path="static/currency.zip", filename="files/currency.zip", as_attachment=True)
 
+
+@app.route('/download-app-2')
+def download_app_2():
+	return send_from_directory('static', path="static/house-app.zip", filename="files/house-app.zip", as_attachment=True)
 
 
 @app.route('/download-cv')
 def download_cv():
 	return send_from_directory('static', path="static/files/CV.txt", filename="files/CV.txt", as_attachment=True)
+
+
 
 
 

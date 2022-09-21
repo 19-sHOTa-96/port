@@ -13,8 +13,8 @@ password = os.environ.get("M_PASSWORD")
 to_email = os.environ.get("TO_EMAIL")
 
 ##Sms Creds
-account_sid = os.environ.get('TW_SID')
-auth_token = os.environ.get('TW_TOKEN')
+account_sid = "AC65123814c1e7a73756a3fdcb8af20a8d" #os.environ.get('TW_SID')
+auth_token = "15388e639a810ba328419ec71e739e4b" #os.environ.get('TW_TOKEN')
 
 class Contactor:
 
@@ -38,8 +38,8 @@ class Contactor:
         message = client.messages \
                         .create(
                             body=sms,
-                            from_=os.environ.get('SENDER_PHONE'),
-                            to=os.environ.get('RECEIVER_NUMBER')
+                            from_= "+18176460896", #os.environ.get('SENDER_PHONE'),
+                            to= "+995571770421", #os.environ.get('RECEIVER_NUMBER')
                         )
 
         
@@ -51,4 +51,4 @@ if __name__ == "__main__":
     print(os.environ.get('RECEIVER_NUMBER'))
 
 
-
+# print(account_sid, auth_token)
